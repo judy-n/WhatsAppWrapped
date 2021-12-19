@@ -1,7 +1,6 @@
 import * as formidable from 'formidable';
 import * as fs from 'fs-extra';
 import { Request } from 'express';
-import 'core-js/features/set';
 import * as dt from 'date-and-time'
 
 type messageType = {[key: string]: string[]}

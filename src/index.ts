@@ -6,16 +6,16 @@ import WrappedData from './WrappedData';
 const app = express();
 
 app.use(busboy())
-app.use(express.static(path.join(path.resolve(), '/static')))
+app.use(express.static(path.join(path.resolve(), '../static')))
 
 app.get('/', (req, res, next) => {
   console.log('homepage')
-  res.sendFile(path.join(path.resolve(), '/index.html'))
+  res.sendFile(path.join(path.resolve(), '../index.html'))
 })
 
 app.get('/wrapped', (req, res, next) => {
   console.log('wrapped')
-  res.sendFile(path.join(path.resolve(), '/wrap.html'))
+  res.sendFile(path.join(path.resolve(), '../wrap.html'))
 })
 
 app.post('/upload', async (req, res, next) => {
@@ -45,6 +45,7 @@ app.post('/upload', async (req, res, next) => {
   })
 })
 
-app.listen(() => {
-  console.log('Server started');
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log('Server started on', port);
 });
