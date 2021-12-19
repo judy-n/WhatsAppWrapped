@@ -1,0 +1,185 @@
+html {
+  background-image: url(longwave2.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.msgs {
+  margin-top: 8rem;
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 4rem;
+}
+
+hr {
+  width: 50%;
+  border: solid 2px #ededed;
+  background:#ededed;
+
+}
+
+#count {
+  font-size: 1.5em;
+  margin-right: 5px;
+  color: #4ACA59;
+}
+
+.bubble {
+    position: relative;
+    background: #EDEDED;
+    color: black;
+    font-size: 2em;
+    text-align: center;
+    width: max-content;
+    border-radius: 28px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    height: fit-content;
+}
+
+.bubble:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 0 20px 18px 0;
+    border-color: transparent #EDEDED transparent transparent;
+    top: 56%;
+    left: -20px;
+    margin-top: -9px;
+}
+
+.bubble .name {
+  font-weight: 700;
+  color: #4ACA59;
+}
+
+h2 {
+  font-weight: 500;
+  margin: 0;
+}
+
+.bubble p {
+  margin: 0;
+}
+
+#chart_div {
+  align-self: center;
+}
+
+#graph_desc {
+  color: #c6c6c6;
+  font-weight: 400;
+}
+
+.home-btn {
+    align-self: flex-end;
+    margin-top: 2rem;
+    font-weight: 500;
+    color: #4aca59;
+    font-size: 1.5em;
+    margin-right: 5vw;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+  text-decoration: underline;
+}
+
+.plug {
+  text-align: center;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.frame .bubble {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .bubble p {
+    font-size: 1.5rem;
+  }
+  .bubble h2 {
+    font-size: 2rem;
+  }
+}
+
+.emojis {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.emojis-cont {
+  display: flex;
+    justify-content: space-between;
+}
+
+.emoji-user {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5em;
+    color: #c6c6c6;
+    margin-top: 2rem;
+}
+
+.emoji-line {
+  font-size: 40px;
+  color: black;
+}
+
+#hour {
+  font-size: 1.5em;
+  margin-right: 5px;
+  color: #4ACA59;
+}
+
+.time.bubble{
+ font-size: 1em;
+}
+
+.streak-cont {
+  margin-top: 4rem;
+}
+
+.streak-cont h2 {
+  margin-top: 4rem;
+}
+
+.streak .fire {
+  font-size: 5em;
+}
+
+.streak {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+}
+
+.streak p {
+  font-size: 2em;
+}
+
+#streak {
+  font-weight: bold;
+}
