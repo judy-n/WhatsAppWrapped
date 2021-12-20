@@ -183,3 +183,26 @@ h2 {
 #streak {
   font-weight: bold;
 }
+
+button {
+    border: none;
+    font-family: "DM Sans", sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 6px;
+    column-gap: 5px;
+    background: #EDEDED;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #4aca59;
+    color: white;
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    /*font-size: 2.5em;*/
+    /*color: #30ab3f;*/
+}
