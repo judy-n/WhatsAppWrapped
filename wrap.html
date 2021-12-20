@@ -22,12 +22,24 @@
     <p>The chat between <span class="name fn1" id="fn1">Judy</span> & <span class="name fn2" id="fn2">Julien</span>,</p>
     <h2>Wrapped</h2>
   </div>
-  <div class="msgs">
-    <h2>In total, you shared <span id="count">4902</span> messages</h2>  
+  <div class="msgs" id="msg-cont">
+    <div id="total_msg">
+      <h2>In total, you shared <span id="count">4902</span> messages</h2>  
+    </div>
     <hr/>
     <h2 id="graph_desc">And this was the distribution:</h2>
+    <div id="chart_div"></div>
+  <div class="bubble time" id="hour_msg">
+    <h2>And you talked the most at <span id="hour">5 PM</span> </h2> 
+    </div>
+    <!-- sharing -->
+    <div><button id="share-btn" onclick="shareDiv('#msg-cont')">
+      <span class="material-icons-outlined">
+    send
+    </span>
+      Share
+    </button></div>
   </div>
-  <div id="chart_div"></div>
 
   <div class="wordcloud-cont">
     <h2>And you had a lot to say...</h2>
@@ -37,15 +49,14 @@
 <div id="my_dataviz"></div>
 
 <!-- sharing -->
-<div><button id="share-btn" onclick="share()">
+<div><button id="share-btn" onclick="shareDiv('#my_dataviz')">
   <span class="material-icons-outlined">
 send
 </span>
   Share
-
 </button></div>
 
-<div class="emojis">
+<div class="emojis" id="emojis">
   <h2>Your most used emojis were:</h2>  
   <div class="emojis-cont">
     <div class="emoji-user">
@@ -60,12 +71,15 @@ send
     </div>
   </div>
 </div>
+<!-- sharing -->
+<div><button id="share-btn" onclick="shareDiv('#emojis')">
+  <span class="material-icons-outlined">
+send
+</span>
+  Share
+</button></div>
 
-<div class="bubble time">
-<h2>And you talked the most at <span id="hour">5 PM</span> </h2> 
-</div>
-
-<div class="streak-cont">
+<div class="streak-cont" id="streak_cont">
   <hr/>
   <h2>This is your current texting streak - keep it going!</h2>
   <div class="streak">
@@ -73,6 +87,13 @@ send
   <!-- put id streak where you want the streak to be -->
   <p><span id="streak"></span> days</p>
   </div>
+<!-- sharing -->
+<div><button id="share-btn" onclick="shareDiv('#streak_cont')">
+  <span class="material-icons-outlined">
+send
+</span>
+  Share
+</button></div>
  
 </div>
 </body>

@@ -146,9 +146,9 @@ function draw(words) {
         .text(function(d) { return d.text; });
 }
 
-async function share() {
+async function shareDiv(query) {
   try {
-    const div = document.querySelector("#my_dataviz")
+    const div = document.querySelector(query)
     div.classList.add('frame')
     const bubble = document.querySelector('.bubble').cloneNode(true)
     const p = document.createElement('p')
