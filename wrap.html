@@ -31,15 +31,15 @@
     <div id="chart_div"></div>
   <div class="bubble time" id="hour_msg">
     <h2>And you talked the most at <span id="hour">5 PM</span> </h2> 
-    </div>
-    <!-- sharing -->
-    <div><button id="share-btn" onclick="shareDiv('#msg-cont')">
-      <span class="material-icons-outlined">
-    ios_share
-    </span>
-      Share
-    </button></div>
   </div>
+</div>
+<!-- sharing -->
+<div class="share-container"><button id="share-btn" onclick="shareDiv('#msg-cont', ['#graph_desc', '#total_msg'])">
+  <span class="material-icons-outlined">
+ios_share
+</span>
+  Share
+</button></div>
 
   <div class="wordcloud-cont">
     <h2>And you had a lot to say...</h2>

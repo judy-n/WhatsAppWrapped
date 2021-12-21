@@ -146,17 +146,19 @@ function draw(words) {
         .text(function(d) { return d.text; });
 }
 
-async function shareDiv(query) {
+async function shareDiv(query, selectors = []) {
   try {
     const div = document.querySelector(query)
     div.classList.add('frame')
     const bubble = document.querySelector('.bubble').cloneNode(true)
     const p = document.createElement('p')
-    p.classList.add('plug')
+    p.classList.add('plug', 'center-for-ss')
     p.append(document.createTextNode("Created with WhatsApp Wrapped"))
     div.insertBefore(bubble, div.childNodes[0])
     div.append(p)
+    selectors.forEach(s => document.querySelector(s).classList.add('center-for-ss'))
     const canvas = await html2canvas(div)
+    selectors.forEach(s => document.querySelector(s).classList.remove('center-for-ss'))
     div.removeChild(bubble)
     div.removeChild(p)
     div.classList.remove('frame')

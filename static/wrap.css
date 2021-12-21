@@ -207,3 +207,15 @@ button:hover{
     /*font-size: 2.5em;*/
     /*color: #30ab3f;*/
 }
+
+.center-for-ss {
+  width: 100%;
+  text-align: center;
+}
+
+.share-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
