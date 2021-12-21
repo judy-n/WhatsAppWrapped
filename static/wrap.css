@@ -194,6 +194,7 @@ button {
     column-gap: 5px;
     background: #EDEDED;
     cursor: pointer;
+    font-size: 1em;
 }
 
 button:hover{

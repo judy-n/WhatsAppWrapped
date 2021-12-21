@@ -50,12 +50,13 @@ body {
   padding:2rem;
 }
 
-.upload h2 {
+h2 {
   margin-top: 4rem;
   font-weight: 500;
   font-size: 2em;
   color: white;
 }
+
 
 .upload p {
   color:#30AB3F;
@@ -103,7 +104,7 @@ label{
     border-radius: 6px;
     background: white;
     font-family: 'DM Sans';
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
     font-size: large;
 }
@@ -149,4 +150,13 @@ label{
     margin-top: -2rem;
     margin-left: 2rem;
   }
+}
+
+.how-to {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #4aca59;
+  width: 100%;
 }
