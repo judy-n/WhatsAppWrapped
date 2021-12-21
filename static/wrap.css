@@ -107,6 +107,8 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 .frame .bubble {
@@ -130,7 +132,7 @@ h2 {
 
 .emojis-cont {
   display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .emoji-user {

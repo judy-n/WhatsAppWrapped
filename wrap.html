@@ -22,7 +22,7 @@
     <p>The chat between <span class="name fn1" id="fn1">Judy</span> & <span class="name fn2" id="fn2">Julien</span>,</p>
     <h2>Wrapped</h2>
   </div>
-  <div class="msgs" id="msg-cont">
+  <div class="msgs sharable" id="msg-cont">
     <div id="total_msg">
       <h2>In total, you shared <span id="count">4902</span> messages</h2>  
     </div>
@@ -46,7 +46,7 @@ ios_share
   </div>
   
   <!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+<div id="my_dataviz sharable"></div>
 
 <!-- sharing -->
 <div><button id="share-btn" onclick="shareDiv('#my_dataviz')">
@@ -56,8 +56,8 @@ ios_share
   Share
 </button></div>
 
-<div class="emojis" id="emojis">
-  <h2>Your most used emojis were:</h2>  
+<div class="emojis sharable" id="emojis">
+  <h2 id="emoji-title">Your most used emojis were:</h2>  
   <div class="emojis-cont">
     <div class="emoji-user">
         <p class="fn1">Judy</p>
@@ -72,14 +72,14 @@ ios_share
   </div>
 </div>
 <!-- sharing -->
-<div><button id="share-btn" onclick="shareDiv('#emojis')">
+<div><button id="share-btn" onclick="shareDiv('#emojis', ['#emoji-title'])">
   <span class="material-icons-outlined">
 ios_share
 </span>
   Share
 </button></div>
 
-<div class="streak-cont" id="streak_cont">
+<div class="streak-cont sharable" id="streak_cont">
   <hr/>
   <h2>This is your current texting streak - keep it going!</h2>
   <div class="streak">
@@ -88,7 +88,7 @@ ios_share
   <p><span id="streak"></span> days</p>
   </div>
 <!-- sharing -->
-<div><button id="share-btn" onclick="shareDiv('#streak_cont')">
+<div class="share-container"><button id="share-btn" onclick="shareDiv('#streak_cont')">
   <span class="material-icons-outlined">
 ios_share
 </span>
