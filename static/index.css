@@ -159,4 +159,41 @@ label{
   justify-content: center;
   background: #4aca59;
   width: 100%;
+  padding: 2rem;
+}
+.howto-content {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.howto-content p {
+  font-weight: normal;
+  color: white;
+  background: #30ab3f;
+  padding: 1rem;
+}
+
+img {
+  width: 20em;
+  margin: 1rem;
+  background: #30ab3f;
+  border: solid 5px #30ab3f;
+}
+
+.howto-imgs {
+  display: flex;
+  align-items: flex-start;
+}
+
+hr {
+  border: solid 2px #30ab3f;
+  background-color: #30ab3f;
+  width: 15%;
+  height: 0;
+}
+
+#bolded {
+  font-weight: bold;
 }
