@@ -10,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .msgs {
@@ -118,10 +119,34 @@ h2 {
 
 @media only screen and (max-width: 768px) {
   .bubble p {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   .bubble h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+  .msgs {
+    row-gap: 1rem;
+  }
+  #total_msg, #graph_desc {
+    width: 100%;
+    text-align: center;
+  }
+  #total_msg h2, #graph_desc {
+    font-size: 0.9rem;
+  }
+  #hour_msg {
+    margin: auto;
+    max-width: 90vw;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  #hour_msg #hour {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  #streak_cont h2 {
+    font-size: 1rem;
+    text-align: center;
   }
 }
 
