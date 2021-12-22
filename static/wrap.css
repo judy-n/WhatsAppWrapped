@@ -135,7 +135,6 @@ h2 {
     font-size: 0.9rem;
   }
   #hour_msg {
-    margin: auto;
     max-width: 90vw;
     font-size: 0.85rem;
     padding: 0.5rem;
@@ -182,6 +181,7 @@ h2 {
 
 .time.bubble{
  font-size: 1em;
+    margin-bottom: 3rem;
 }
 
 .streak-cont {
@@ -231,8 +231,6 @@ button:hover{
 
 .material-icons-outlined {
     font-family: 'Material Icons';
-    /*font-size: 2.5em;*/
-    /*color: #30ab3f;*/
 }
 
 .center-for-ss {
@@ -245,4 +243,8 @@ button:hover{
   display: flex;
   justify-content: center;
   margin: 1rem 0;
+}
+
+.wordcloud-cont {
+    margin-top: 2rem;
 }
