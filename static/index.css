@@ -225,3 +225,11 @@ hr {
   width: 100%;
   align-items: center;
 }
+
+.disclaimer p {
+  width: 50%;
+  background-color: #30ab3f;
+  font-weight: normal;
+  color: white;
+  padding: 1rem;
+}
