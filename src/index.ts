@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as path from 'path';
-import * as busboy from 'connect-busboy';
+const busboy = require('connect-busboy');
 import WrappedData from './WrappedData';
 
 const app = express();
