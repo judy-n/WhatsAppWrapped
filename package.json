@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-static": "cd static/src && tsc --outDir ../js ./*.ts",
-    "dev": "nodemon -w src --exec \"tsc --outDir ./build && cd build && node index.js\""
+    "dev": "nodemon -w src --exec \"tsc --outDir ./build && cd build && node index.js\"",
+    "start": "tsc --outDir ./build && cd build && node index.js"
   },
   "keywords": [],
   "author": "",
