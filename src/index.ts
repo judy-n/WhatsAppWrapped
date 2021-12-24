@@ -6,11 +6,19 @@ const app = express();
 
 app.use(express.static(path.join(path.resolve(), '../static')))
 
-app.get('/', (req, res, next) => {
+function requireHTTPS(req: express.Request, res: express.Response, next: express.NextFunction) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+
+app.get('/', requireHTTPS, (req, res, next) => {
   res.sendFile(path.join(path.resolve(), '../index.html'))
 })
 
-app.get('/wrapped', (req, res, next) => {
+app.get('/wrapped', requireHTTPS, (req, res, next) => {
   res.sendFile(path.join(path.resolve(), '../wrap.html'))
 })
 
