@@ -47,7 +47,8 @@ document.querySelector('#file-submit').addEventListener('click', (e) => {
   data.append('fileUploaded', input.files[0])
   fetch('/upload', {
     method: 'POST',
-    body: data
+    body: data,
+    "Content-Type": "multipart/form-data"
   }).then(res => res.json()).then(json => {
     localStorage.setItem('WAWData', JSON.stringify(json))
     window.location.href = '/wrapped'
