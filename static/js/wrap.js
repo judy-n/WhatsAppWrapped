@@ -111,6 +111,9 @@ function cloudNormalize(wordList) {
 }
 
 function drawCloud() {
+  if (lastWidth && lastWidth === window.innerWidth) {
+    return
+  }
   document.querySelector("#my_dataviz").innerHTML = ""
   // List of words
   let myWords = nWordsForCloud(75)
