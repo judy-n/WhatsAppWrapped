@@ -267,6 +267,12 @@ button:hover{
   margin: 1rem 0;
 }
 
+.shareable-link {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #4ACA59;
+}
+
 .wordcloud-cont {
     margin-top: 2rem;
 }
