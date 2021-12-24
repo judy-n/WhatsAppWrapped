@@ -311,3 +311,26 @@ hr {
 #tooltip[data-popper-placement^='right'] > #p-arrow {
   left: -4px;
 }
+
+footer {
+  width: 100%;
+  border-top: solid 5px #30ab3f;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+}
+
+
+#heart {
+  color: red;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+}
+footer a:hover{
+  text-decoration-line: underline;
+  text-decoration-color: green;
+  text-decoration-thickness: 3px;
+}
