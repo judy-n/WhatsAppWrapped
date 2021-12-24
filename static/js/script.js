@@ -7,7 +7,6 @@ actualBtn.addEventListener('change', function(){
 })
 
 function dropHandler(ev) {
-  console.log('File(s) dropped');
 
   const dragText = document.getElementById('drag')
   dragText.innerText = "Drag & drop here"
@@ -25,7 +24,6 @@ function dropHandler(ev) {
 }
 
 function dragOverHandler(ev) {
-  console.log('File(s) in drop zone');
   ev.preventDefault();
 
   const dragText = document.getElementById('drag')
@@ -49,10 +47,26 @@ document.querySelector('#file-submit').addEventListener('click', (e) => {
   data.append('fileUploaded', input.files[0])
   fetch('/upload', {
     method: 'POST',
-    body: data
+    body: data,
+    "Content-Type": "multipart/form-data"
   }).then(res => res.json()).then(json => {
-    console.log(JSON.stringify(json))
     localStorage.setItem('WAWData', JSON.stringify(json))
     window.location.href = '/wrapped'
   }).catch(console.error)
+})
+
+const dataDesc = document.querySelector("#data")
+const tooltip = document.querySelector("#tooltip")
+const arrow = document.querySelector("#p-arrow")
+const disclaimer = document.querySelector("#disclaim")
+Popper.createPopper(dataDesc, tooltip, { placement: 'bottom' })
+
+disclaimer.addEventListener('mouseover', () => {
+  tooltip.classList.remove('hidden');
+  [...tooltip.children].forEach(child => child.classList.remove('hidden'))
+})
+
+disclaimer.addEventListener('mouseout', () => {
+  tooltip.classList.add('hidden');
+  [...tooltip.children].forEach(child => child.classList.add('hidden'))
 })

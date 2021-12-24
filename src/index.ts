@@ -1,20 +1,27 @@
 import * as express from 'express';
 import * as path from 'path';
-import * as busboy from 'connect-busboy';
+import axios from 'axios'
 import WrappedData from './WrappedData';
 
 const app = express();
 
-app.use(busboy())
 app.use(express.static(path.join(path.resolve(), '../static')))
 
-app.get('/', (req, res, next) => {
-  console.log('homepage')
+function requireHTTPS(req: express.Request, res: express.Response, next: express.NextFunction) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+
+app.get('/', requireHTTPS, (req, res, next) => {
   res.sendFile(path.join(path.resolve(), '../index.html'))
 })
 
-app.get('/wrapped', (req, res, next) => {
-  console.log('wrapped')
+app.get('/wrapped', requireHTTPS, async (req, res, next) => {
+  // used to track total visits - sends no data
+  await axios.get("https://www.fourquadrant.tech/api/whatsappwrapped")
   res.sendFile(path.join(path.resolve(), '../wrap.html'))
 })
 

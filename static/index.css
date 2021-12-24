@@ -91,6 +91,11 @@ h2 {
   color: #30ab3f;
 }
 
+#help-icon {
+  font-size: inherit;
+  padding-right: 2px;
+}
+
 label{
   display: inline-block;
   color: white;
@@ -139,6 +144,14 @@ label{
 
 .hide {
   display: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.hidden::before {
+  visibility: hidden !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -233,4 +246,68 @@ hr {
   color: white;
   padding: 1rem;
   margin: 1rem;
+}
+
+/* for popper */
+#data {
+  font-size: 1rem;
+  color: #30ab3f;
+  display: flex; 
+}
+
+#data #help-icon {
+  display: grid;
+  align-items: center;
+}
+
+#tooltip {
+  background: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.4rem;
+  border-radius: 5px;
+  max-width: 220px;
+  text-align: center;
+}
+
+#tooltip a {
+  color: #4aca59;
+}
+
+#tooltip a:hover {
+  text-decoration: underline;
+}
+
+#p-arrow,
+#p-arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
+
+#p-arrow {
+  visibility: hidden;
+}
+
+#p-arrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
+}
+
+#tooltip[data-popper-placement^='top'] > #p-arrow {
+  bottom: -4px;
+}
+
+#tooltip[data-popper-placement^='bottom'] > #p-arrow {
+  top: -4px;
+}
+
+#tooltip[data-popper-placement^='left'] > #p-arrow {
+  right: -4px;
+}
+
+#tooltip[data-popper-placement^='right'] > #p-arrow {
+  left: -4px;
 }
