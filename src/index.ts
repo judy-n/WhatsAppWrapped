@@ -1,11 +1,9 @@
 import * as express from 'express';
 import * as path from 'path';
-const busboy = require('connect-busboy');
 import WrappedData from './WrappedData';
 
 const app = express();
 
-app.use(busboy())
 app.use(express.static(path.join(path.resolve(), '../static')))
 
 app.get('/', (req, res, next) => {
