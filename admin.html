@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Auth -->
+        <div class="admin-auth">
+            <input type="text" name="secret" id="secret-input" placeholder="Admin Secret">
+            <button onclick="auth()">Submit</button>
+        </div>
+        <!-- Show -->
+        <table class="hide admin-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Total</th>
+                    <th>Average Daily</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+</html>

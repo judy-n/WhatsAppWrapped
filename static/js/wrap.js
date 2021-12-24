@@ -175,7 +175,7 @@ async function shareDiv(query, selectors = []) {
     const bubble = document.querySelector('.bubble').cloneNode(true)
     const p = document.createElement('p')
     p.classList.add('plug', 'center-for-ss')
-    p.append(document.createTextNode("Created with WhatsApp Wrapped"))
+    p.innerHTML = 'Created with <span class="shareable-link">WhatsAppWrapped.tech</span>'
     div.insertBefore(bubble, div.childNodes[0])
     div.append(p)
     div.classList.add('bg-img')
