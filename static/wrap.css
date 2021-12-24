@@ -23,9 +23,10 @@ body {
 .msgs {
   margin-top: 8rem;
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 4rem;
+  flex-direction: column;
+  align-items: center;
+  /* HERE 4rem */
+  row-gap: 1rem;
 }
 
 hr {
@@ -91,6 +92,7 @@ h2 {
 #graph_desc {
   color: #c6c6c6;
   font-weight: 400;
+  text-align: center;
 }
 
 .home-btn {
@@ -125,11 +127,17 @@ h2 {
 }
 
 @media only screen and (max-width: 768px) {
+  .bubble {
+    max-width: 80%;
+  }
   .bubble p {
     font-size: 1rem;
   }
   .bubble h2 {
     font-size: 1.5rem;
+  }
+  .bubble::after {
+    border-width: 0 30px 18px 0;
   }
   .msgs {
     row-gap: 1rem;
@@ -150,8 +158,7 @@ h2 {
     font-size: 1.5rem;
     font-weight: 500;
   }
-  #streak_cont h2 {
-    font-size: 1rem;
+  #streak_cont:not(.sharable-h2) {
     text-align: center;
   }
 }
@@ -180,6 +187,11 @@ h2 {
   color: black;
 }
 
+#emoji-title {
+  max-width: 80%;
+  margin: auto;
+}
+
 #hour {
   font-size: 1.5em;
   margin-right: 5px;
@@ -195,8 +207,11 @@ h2 {
   margin-top: 4rem;
 }
 
-.streak-cont h2 {
+.streak-title {
   margin-top: 4rem;
+  max-width: 85%;
+  margin: auto;
+  text-align: center;
 }
 
 .streak .fire {

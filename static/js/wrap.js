@@ -71,12 +71,12 @@ function drawChart() {
       document.getElementById('chart_div'));
 
       let options = {
-      'width': width,
-      'height': 400,
-      'legend': 'none',
-       'vAxis': {'minValue': 0},
-       'animation': {'startup': true,'duration': 5000}
-       }
+        'width': width,
+        'height': 400,
+        'legend': 'none',
+        'vAxis': {'minValue': 0},
+        'animation': {'startup': true,'duration': 5000}
+      }
 
       chart.draw(data, options);
 }
@@ -151,7 +151,12 @@ function drawCloud() {
     .data(words)
     .enter().append("text")
     .style("font-size", function(d) { return d.size; })
-    .style("fill", function(d) { return Math.random() > 0.5 ? "#4ACA59" : "#c6c6c6"})
+    .style("fill", function(d) { 
+      if (d.x < -1 * (width*0.37)) { // too far left has to be grey to be visible
+        return "#c6c6c6"
+      }
+      return Math.random() > 0.5 ? "#4ACA59" : "#c6c6c6"
+    })
     .attr("text-anchor", "middle")
     .style("font-family", "Helvetica")
     .attr("transform", function(d) {
@@ -175,6 +180,7 @@ async function shareDiv(query, selectors = []) {
     div.append(p)
     div.classList.add('bg-img')
     selectors.forEach(s => document.querySelector(s).classList.add('center-for-ss'))
+    return
     const canvas = await html2canvas(div)
     selectors.forEach(s => document.querySelector(s).classList.remove('center-for-ss'))
     div.removeChild(bubble)
