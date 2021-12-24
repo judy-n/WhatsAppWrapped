@@ -5,6 +5,13 @@ html {
   background-position: top;
 }
 
+.bg-img {
+  background-image: url(longwave2.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   display: flex;

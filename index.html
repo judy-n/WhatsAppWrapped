@@ -10,6 +10,7 @@
   <link rel="shortcut icon" href="icon.png">
  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <script defer src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
  <script defer src="js/script.js"></script>
 </head>
 <body>
@@ -36,6 +37,15 @@
     <input id="file-input" name="fileUploaded" type="file" accept=".txt" hidden></input>
   </form>
       <span id="file-chosen">No file chosen</span>
+      <br>
+      <div id="disclaim">
+        <div id="data" aria-describedby="tooltip"><span class="material-icons-outlined" id="help-icon">help_outline</span>What happens to my data?</div>
+        <div id="tooltip" class="hidden" role="tooltip">
+          We do not see or store your data, it is parsed and sent right back to your browser's local storage.
+          Feel free to check out <a href="https://github.com/judy-n/WhatsAppWrapped">our code</a> for peace of mind.
+          <div id="p-arrow" class="hidden" data-popper-arrow></div>
+        </div>
+      </div>
     </div>
     <button id="file-submit"><div class="loader hide"></div><span id="status">Submit</span></button>
   </div>
@@ -69,7 +79,7 @@
     <hr/>
     <p>We do not see or store any of your chat data. It is uploaded to the local storage in your browser: no one else can access it.
     </p>
-    <p>WhatsApp Wrapped is open source, so anyone with some coding knowledge can look at our repo for ease of mind.</p>
+    <p>WhatsApp Wrapped is open source, so anyone with some coding knowledge can look at our repo for peace of mind.</p>
   </div>
   
  

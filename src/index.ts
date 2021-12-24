@@ -9,12 +9,10 @@ app.use(busboy())
 app.use(express.static(path.join(path.resolve(), '../static')))
 
 app.get('/', (req, res, next) => {
-  console.log('homepage')
   res.sendFile(path.join(path.resolve(), '../index.html'))
 })
 
 app.get('/wrapped', (req, res, next) => {
-  console.log('wrapped')
   res.sendFile(path.join(path.resolve(), '../wrap.html'))
 })
 
