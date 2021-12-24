@@ -180,7 +180,6 @@ async function shareDiv(query, selectors = []) {
     div.append(p)
     div.classList.add('bg-img')
     selectors.forEach(s => document.querySelector(s).classList.add('center-for-ss'))
-    return
     const canvas = await html2canvas(div)
     selectors.forEach(s => document.querySelector(s).classList.remove('center-for-ss'))
     div.removeChild(bubble)
