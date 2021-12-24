@@ -13,6 +13,7 @@ const {
   mostActiveHour, 
 } = JSON.parse(localStorage.getItem('WAWData') || '{}')
 let lastWidth;
+let lastCloudWidth;
 
 const stopWords = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'on', 'in', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"] // ignore this haha
 
@@ -111,17 +112,20 @@ function cloudNormalize(wordList) {
 }
 
 function drawCloud() {
-  if (lastWidth && lastWidth === window.innerWidth) {
-    return
-  }
-  document.querySelector("#my_dataviz").innerHTML = ""
   // List of words
   let myWords = nWordsForCloud(75)
   // set the dimensions and margins of the graph
   let margin = {top: 10, right: 10, bottom: 10, left: 10}
-  width = r(r(750, 350), 300, 350) - margin.left - margin.right
+  width = r(r(750, 350), 300, 370) - margin.left - margin.right
   height = r(450, 250) - margin.top - margin.bottom;
   
+  if (width === lastCloudWidth) {
+    console.log('don\'t redraw')
+    return
+  }
+  lastCloudWidth = width
+  document.querySelector("#my_dataviz").innerHTML = ""
+
   // append the svg object to the body of the page
   let svg = d3.select("#my_dataviz").append("svg")
   .attr("width", width + margin.left + margin.right)
