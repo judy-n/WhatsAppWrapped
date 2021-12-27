@@ -343,8 +343,8 @@ export default class WrappedData {
     const u1Messages = messagesPerPerson[this.user1]
     const u2Messages = messagesPerPerson[this.user2]
     for (let i = 0; i < Math.max(u1Messages.length, u2Messages.length); i++) {
-      const u1Msg = (u1Messages[i] || '').replace(/$.+: /g, '')
-      const u2Msg = (u2Messages[i] || '').replace(/$.+: /g, '')
+      const u1Msg = (u1Messages[i] || '').replace(/^.+: /g, '')
+      const u2Msg = (u2Messages[i] || '').replace(/^.+: /g, '')
       const u1Emojis = this.getEmojis(u1Msg).filter(emoji => !WrappedData.ignoreEmojis.includes(emoji));
       u1Emojis.forEach(emoji => {
         u1EmojiCounts[emoji] = (u1EmojiCounts[emoji] || 0) + 1
