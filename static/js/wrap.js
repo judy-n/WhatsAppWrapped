@@ -8,7 +8,7 @@ const {
   numMessages,
   messagesPerPerson,
   wordCountTotal,
-  emojisByUsePerPerson,
+  topThreeEmojisPerPerson,
   currentStreak,
   mostActiveHour,
 } = JSON.parse(localStorage.getItem('WAWData') || '{}')
@@ -27,14 +27,14 @@ if (+hourFormatted > 12) {
   hourFormatted += " AM"
 }
 document.querySelector("#hour").innerText = hourFormatted
-const user1Top3 = emojisByUsePerPerson[0].slice(0,3).reduce((acc, curr) => {
+const user1Top3 = topThreeEmojisPerPerson[0].reduce((acc, curr) => {
   return acc + curr
 }, "")
-const user2Top3 = emojisByUsePerPerson[1].slice(0,3).reduce((acc, curr) => {
+const user2Top3 = topThreeEmojisPerPerson[1].reduce((acc, curr) => {
   return acc + curr
 }, "")
-let user1TopEmojis = user1Top3.replace(/❤/g, "❤️")
-let user2TopEmojis = user2Top3.replace(/❤/g, "❤️")
+let user1TopEmojis = user1Top3.replace(/(❤|♥)/g, "❤️")
+let user2TopEmojis = user2Top3.replace(/(❤|♥)/g, "❤️")
 document.querySelector("#el1").innerText = user1TopEmojis
 document.querySelector("#el2").innerText = user2TopEmojis
 document.querySelector("#streak").innerText = currentStreak
@@ -194,12 +194,11 @@ async function shareDiv(query, selectors = []) {
     const url = canvas.toDataURL()
     const res1 = await fetch(url)
     const blob = await res1.blob()
-    const file = new File([blob], 'wrapped_pic.png', {type:"image/png", lastModified:new Date()});
+    const file = new File([blob], 'wrapped_pic.png', {type: blob.type, lastModified:new Date()});
+    if (!file) return
     const data = {files: [file], title: "WhatsApp Wrapped Img"}
     if (navigator.canShare(data)) {
       navigator.share(data)
-    } else {
-      document.body.innerText = "oops"
     }
   } catch (e) {
     console.error('error generating graphic', e)

@@ -12,9 +12,10 @@ export default class WrappedData {
   private user2: string = '';
   private firstName1: string = '';
   private firstName2: string = '';
+  private messagesPerPerson: {[key: string]: string[]} | null = null;
   private static msgRemove: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]? (- )?/g;
   private static timestamp: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]?/g;
-  private static omitted: RegExp = /^[\w ]+: <?(audio|sticker|image|Media) omitted>?/g
+  private static omitted: RegExp = /<?(audio|sticker|image|Media) omitted>?/g
   private static ignoreEmojis: string[] = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
 
   static async parseTXT(req: Request): Promise<messageType> {
@@ -104,9 +105,7 @@ export default class WrappedData {
   }
 
   getNumMessages(): number {
-    return [...Object.values(this.messageJson)].reduce((allMsg: string[], msgs: string[]) => {
-      return [...allMsg, ...msgs]
-    }, []).length - 1
+    return [...Object.values(this.messageJson)].reduce((total: number, msgs: string[]) => total + msgs.length, 0) - 1
   }
 
   getMessagesPerPerson(): {[key: string]: string[]} {
@@ -128,6 +127,7 @@ export default class WrappedData {
         }
       })
     })
+    this.messagesPerPerson = messagesPerPerson
     return messagesPerPerson
   }
 
@@ -161,7 +161,7 @@ export default class WrappedData {
   }
 
   getWordCountPerPerson(): {[key: string]: {[key: string]: number}} {
-    const messagesPerPerson = this.getMessagesPerPerson()
+    const messagesPerPerson = this.messagesPerPerson || this.getMessagesPerPerson() // don't run again unnecessarily
     const user1Count: {[key: string]: number} = {}
     const user2Count: {[key: string]: number} = {}
     const u1Messages = messagesPerPerson[this.user1]
@@ -343,8 +343,8 @@ export default class WrappedData {
     const u1Messages = messagesPerPerson[this.user1]
     const u2Messages = messagesPerPerson[this.user2]
     for (let i = 0; i < Math.max(u1Messages.length, u2Messages.length); i++) {
-      const u1Msg = u1Messages[i] || ''
-      const u2Msg = u2Messages[i] || ''
+      const u1Msg = (u1Messages[i] || '').replace(/^.+: /g, '')
+      const u2Msg = (u2Messages[i] || '').replace(/^.+: /g, '')
       const u1Emojis = this.getEmojis(u1Msg).filter(emoji => !WrappedData.ignoreEmojis.includes(emoji));
       u1Emojis.forEach(emoji => {
         u1EmojiCounts[emoji] = (u1EmojiCounts[emoji] || 0) + 1
@@ -379,5 +379,26 @@ export default class WrappedData {
       return user2Counts[b] - user2Counts[a]
     })
     return [byUseUser1, byUseUser2]
+  }
+  
+  getTopNEmojis(counts: {[key: string]: number}, n: number): string[] {
+    const topThree: string[] = []
+    Object.keys(counts).forEach(key => {
+      if (topThree.length < n) {
+        topThree.push(key)
+      }
+      const index = topThree.findIndex(emoji => counts[emoji] < counts[key])
+      if (index >= 0) {
+        topThree[index] = key
+      }
+    })
+    return topThree
+  }
+
+  getTopNEmojisPerPerson(n: number): [string[], string[]] {
+    const emojiCountsPerPerson = this.getEmojiCountsPerPerson()
+    const topThreeUser1: string[] = this.getTopNEmojis(emojiCountsPerPerson[this.user1], n)
+    const topThreeUser2: string[] = this.getTopNEmojis(emojiCountsPerPerson[this.user2], n)
+    return [topThreeUser1, topThreeUser2]
   }
 }
