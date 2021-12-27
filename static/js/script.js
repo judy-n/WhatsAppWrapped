@@ -35,21 +35,35 @@ function dragLeaveHandler(e) {
   dragText.innerText = "Drag & drop here"
 }
 
-document.querySelector('#samp').addEventListener('click', () => {
+document.querySelector('#samp').addEventListener('click', (e) => {
+  e.preventDefault()
   const data = new FormData()
   fetch('sample.txt')
       .then(response => response.text())
-      .then(text => console.log(text))
-  fetch('/upload', {
-    method: 'POST',
-    body: data,
-    "Content-Type": "multipart/form-data"
-  }).then(res => res.json()).then(json => {
-    localStorage.setItem('WAWData', JSON.stringify(json))
-    window.location.href = '/wrapped'
-  }).catch(console.error)
-    }
-)
+      .then(text => {
+        const lines = text.split('\n').map(line => line + "\n")
+        const file = new File(lines, "fileUploaded.txt", {type: "text/plain", lastModified: new Date()})
+        const data = new FormData()
+        data.append('fileUploaded', file)
+        fetch('/upload', {
+          method: 'POST',
+          body: data,
+          "Content-Type": "multipart/form-data"
+        }).then(res => res.json()).then(json => {
+          localStorage.setItem('WAWData', JSON.stringify(json))
+          window.location.href = '/wrapped'
+        }).catch(console.error)
+      })
+  
+  // fetch('/upload', {
+  //   method: 'POST',
+  //   body: data,
+  //   "Content-Type": "multipart/form-data"
+  // }).then(res => res.json()).then(json => {
+  //   localStorage.setItem('WAWData', JSON.stringify(json))
+  //   window.location.href = '/wrapped'
+  // }).catch(console.error)
+})
 document.querySelector('#file-submit').addEventListener('click', (e) => {
   const input = document.querySelector('#file-input')
   if (input.files.length === 0) {

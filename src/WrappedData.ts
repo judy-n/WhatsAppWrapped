@@ -197,7 +197,6 @@ export default class WrappedData {
         added.push(day.toDateString())
       }
     }
-    console.log(days.reverse())
     return days
   }
 
@@ -275,12 +274,9 @@ export default class WrappedData {
 
   getCurrentStreak(): number {
     const datesTexted = this.getDaysTexted(true)
-    // console.log("datesTexted:", datesTexted.reverse())
     let day = new Date()
-    console.log('Date is', day)
     let streak = 0
     for (let _i = 0; _i < datesTexted.length; _i++) {
-      console.log("this happened...")
       const found = !!datesTexted.find(dateTexted => {
         return dateTexted.toDateString() === day.toDateString()
       })
@@ -288,11 +284,9 @@ export default class WrappedData {
         streak++;
         day.setDate(day.getDate() - 1)
       } else {
-        console.log("this happened ??")
         break
       }
     }
-    console.log(streak)
     return streak
   }
 
@@ -301,7 +295,6 @@ export default class WrappedData {
     let day = new Date()
     let maxStreak = 0
     let streak = 0
-    console.log(datesTexted.length)
     for (let _i = 0; _i < datesTexted.length; _i++) {
       const found = !!datesTexted.find(dateTexted => {
         return dateTexted.toDateString() === day.toDateString()
@@ -332,7 +325,6 @@ export default class WrappedData {
         })
       })
     })
-    console.log('done')
     return emojiCounts
   }
 
