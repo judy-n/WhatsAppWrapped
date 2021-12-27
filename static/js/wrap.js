@@ -8,7 +8,7 @@ const {
   numMessages,
   messagesPerPerson,
   wordCountTotal,
-  emojisByUsePerPerson,
+  topThreeEmojisPerPerson,
   currentStreak,
   mostActiveHour, 
 } = JSON.parse(localStorage.getItem('WAWData') || '{}')
@@ -27,10 +27,10 @@ if (+hourFormatted > 12) {
   hourFormatted += " AM"
 }
 document.querySelector("#hour").innerText = hourFormatted
-const user1Top3 = emojisByUsePerPerson[0].slice(0,3).reduce((acc, curr) => {
+const user1Top3 = topThreeEmojisPerPerson[0].reduce((acc, curr) => {
   return acc + curr
 }, "")
-const user2Top3 = emojisByUsePerPerson[1].slice(0,3).reduce((acc, curr) => {
+const user2Top3 = topThreeEmojisPerPerson[1].reduce((acc, curr) => {
   return acc + curr
 }, "")
 document.querySelector("#el1").innerText = user1Top3

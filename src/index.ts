@@ -9,9 +9,9 @@ app.use(express.static(path.join(path.resolve(), '../static')))
 
 function requireHTTPS(req: express.Request, res: express.Response, next: express.NextFunction) {
   // The 'x-forwarded-proto' check is for Heroku
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-    return res.redirect('https://' + req.get('host') + req.url);
-  }
+  // if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+  //   return res.redirect('https://' + req.get('host') + req.url);
+  // }
   next();
 }
 
@@ -40,7 +40,7 @@ app.post('/upload', async (req, res, next) => {
   const numMessages = data.getNumMessages();
   const messagesPerPerson = data.getMessagesPerPerson()
   const wordCountTotal = data.getWordCountTotal()
-  const emojisByUsePerPerson = data.getEmojisByUsePerPerson()
+  const topThreeEmojisPerPerson = data.getTopNEmojisPerPerson(3)
   const currentStreak = data.getCurrentStreak()
   const mostActiveHour = data.getNMostActiveHours(1)[0]
   res.json({
@@ -51,7 +51,7 @@ app.post('/upload', async (req, res, next) => {
     numMessages,
     messagesPerPerson,
     wordCountTotal,
-    emojisByUsePerPerson,
+    topThreeEmojisPerPerson,
     currentStreak,
     mostActiveHour,
   })
