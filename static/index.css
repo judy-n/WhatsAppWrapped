@@ -231,28 +231,11 @@ hr {
   align-items: center;
 }
 
-.disclaimer {
-  display: flex;
-  flex-direction: column;
-  background-color: #4aca59;
-  width: 100%;
-  align-items: center;
-}
-
-.disclaimer p {
-  width: 50%;
-  background-color: #30ab3f;
-  font-weight: normal;
-  color: white;
-  padding: 1rem;
-  margin: 1rem;
-}
-
 /* for popper */
 #data {
   font-size: 1rem;
   color: #30ab3f;
-  display: flex; 
+  display: flex;
 }
 
 #data #help-icon {
@@ -333,4 +316,22 @@ footer a:hover{
   text-decoration-line: underline;
   text-decoration-color: green;
   text-decoration-thickness: 3px;
+}
+
+.sample {
+  display: flex;
+  flex-direction: column;
+  background-color: #4aca59;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 5rem;
+}
+
+.sample p {
+  color: white;
+  font-weight: normal;
+}
+.sample a {
+  color: white;
+  font-weight: bold;
 }

@@ -35,6 +35,21 @@ function dragLeaveHandler(e) {
   dragText.innerText = "Drag & drop here"
 }
 
+document.querySelector('#samp').addEventListener('click', () => {
+  const data = new FormData()
+  fetch('sample.txt')
+      .then(response => response.text())
+      .then(text => console.log(text))
+  fetch('/upload', {
+    method: 'POST',
+    body: data,
+    "Content-Type": "multipart/form-data"
+  }).then(res => res.json()).then(json => {
+    localStorage.setItem('WAWData', JSON.stringify(json))
+    window.location.href = '/wrapped'
+  }).catch(console.error)
+    }
+)
 document.querySelector('#file-submit').addEventListener('click', (e) => {
   const input = document.querySelector('#file-input')
   if (input.files.length === 0) {
