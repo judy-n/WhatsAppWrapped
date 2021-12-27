@@ -33,8 +33,8 @@ const user1Top3 = topThreeEmojisPerPerson[0].reduce((acc, curr) => {
 const user2Top3 = topThreeEmojisPerPerson[1].reduce((acc, curr) => {
   return acc + curr
 }, "")
-let user1TopEmojis = user1Top3.replace(/❤/g, "❤️")
-let user2TopEmojis = user2Top3.replace(/❤/g, "❤️")
+let user1TopEmojis = user1Top3.replace(/(❤|♥)/g, "❤️")
+let user2TopEmojis = user2Top3.replace(/(❤|♥)/g, "❤️")
 document.querySelector("#el1").innerText = user1TopEmojis
 document.querySelector("#el2").innerText = user2TopEmojis
 document.querySelector("#streak").innerText = currentStreak
