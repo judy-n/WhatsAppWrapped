@@ -1,6 +1,6 @@
 google.charts.load('current', {'packages':['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
-const { 
+const {
   user1,
   user2,
   firstName1,
@@ -10,7 +10,7 @@ const {
   wordCountTotal,
   topThreeEmojisPerPerson,
   currentStreak,
-  mostActiveHour, 
+  mostActiveHour,
 } = JSON.parse(localStorage.getItem('WAWData') || '{}')
 let lastWidth;
 let lastCloudWidth;
@@ -33,8 +33,10 @@ const user1Top3 = topThreeEmojisPerPerson[0].reduce((acc, curr) => {
 const user2Top3 = topThreeEmojisPerPerson[1].reduce((acc, curr) => {
   return acc + curr
 }, "")
-document.querySelector("#el1").innerText = user1Top3
-document.querySelector("#el2").innerText = user2Top3
+let user1TopEmojis = user1Top3.replace(/❤/g, "❤️")
+let user2TopEmojis = user2Top3.replace(/❤/g, "❤️")
+document.querySelector("#el1").innerText = user1TopEmojis
+document.querySelector("#el2").innerText = user2TopEmojis
 document.querySelector("#streak").innerText = currentStreak
 
 // Important values for displays
@@ -44,7 +46,7 @@ const initialWidth = window.innerWidth
  * @param {value} a Value if window > t
  * @param {value} b Value if window <= t
  * @param {number} t Threshold to compare window width (768 by default)
- * @returns 
+ * @returns
  */
 const r = (a, b, t=768) => window.innerWidth > t ? a : b
 
@@ -61,10 +63,10 @@ function drawChart() {
     style1 = '#4ACA59'
     style2 = '#EDEDED'
   }
-  
+
    let data = google.visualization.arrayToDataTable([
          ['Person', 'Messages', { role: 'style' }],
-         [firstName1, messagesPerPerson[user1].length, style1],            
+         [firstName1, messagesPerPerson[user1].length, style1],
          [firstName2, messagesPerPerson[user2].length, style2],
       ]);
 
@@ -118,7 +120,7 @@ function drawCloud() {
   let margin = {top: 10, right: 10, bottom: 10, left: 10}
   width = r(r(750, 350), 300, 370) - margin.left - margin.right
   height = r(450, 250) - margin.top - margin.bottom;
-  
+
   if (width === lastCloudWidth) {
     console.log('don\'t redraw')
     return
@@ -133,7 +135,7 @@ function drawCloud() {
   .append("g")
   .attr("transform",
   "translate(" + margin.left + "," + margin.top + ")");
-  
+
   // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
   // Wordcloud features that are different from one word to the other must be here
   let layout = d3.layout.cloud()
@@ -144,7 +146,7 @@ function drawCloud() {
   .fontSize(function(d) { return d.size; })      // font size of words
   .on("end", draw);
   layout.start();
-  
+
   // This function takes the output of 'layout' above and draw the words
   // Wordcloud features that are THE SAME from one word to the other can be here
   function draw(words) {
@@ -155,7 +157,7 @@ function drawCloud() {
     .data(words)
     .enter().append("text")
     .style("font-size", function(d) { return d.size; })
-    .style("fill", function(d) { 
+    .style("fill", function(d) {
       if (d.x < -1 * (width*0.37)) { // too far left has to be grey to be visible
         return "#c6c6c6"
       }
@@ -171,7 +173,7 @@ function drawCloud() {
   }
 }
 drawCloud()
-    
+
 async function shareDiv(query, selectors = []) {
   try {
     const div = document.querySelector(query)
