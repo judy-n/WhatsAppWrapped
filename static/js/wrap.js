@@ -194,7 +194,7 @@ async function shareDiv(query, selectors = []) {
     const url = canvas.toDataURL()
     const res1 = await fetch(url)
     const blob = await res1.blob()
-    const file = new File([blob], 'wrapped_pic.png', {type:"image/png", lastModified:new Date()});
+    const file = new File([blob], 'wrapped_pic.png', {type: blob.type, lastModified:new Date()});
     if (!file) return
     const data = {files: [file], title: "WhatsApp Wrapped Img"}
     if (navigator.canShare(data)) {
