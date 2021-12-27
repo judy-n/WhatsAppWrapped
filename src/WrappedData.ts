@@ -15,7 +15,7 @@ export default class WrappedData {
   private messagesPerPerson: {[key: string]: string[]} | null = null;
   private static msgRemove: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]? (- )?/g;
   private static timestamp: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]?/g;
-  private static omitted: RegExp = /^[\w ]+: <?(audio|sticker|image|Media) omitted>?/g
+  private static omitted: RegExp = /<?(audio|sticker|image|Media) omitted>?/g
   private static ignoreEmojis: string[] = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
 
   static async parseTXT(req: Request): Promise<messageType> {
