@@ -195,11 +195,10 @@ async function shareDiv(query, selectors = []) {
     const res1 = await fetch(url)
     const blob = await res1.blob()
     const file = new File([blob], 'wrapped_pic.png', {type:"image/png", lastModified:new Date()});
+    if (!file) return
     const data = {files: [file], title: "WhatsApp Wrapped Img"}
     if (navigator.canShare(data)) {
       navigator.share(data)
-    } else {
-      document.body.innerText = "oops"
     }
   } catch (e) {
     console.error('error generating graphic', e)
