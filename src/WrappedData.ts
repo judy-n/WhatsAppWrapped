@@ -13,8 +13,8 @@ export default class WrappedData {
   private firstName1: string = '';
   private firstName2: string = '';
   private messagesPerPerson: {[key: string]: string[]} | null = null;
-  private static msgRemove: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]? (- )?/g;
-  private static timestamp: RegExp = /^\[?\d{4}-\d{2}-\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)\.?(M|m)\.?\]?/g;
+  private static msgRemove: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).?(M|m).?\]? (- )?/g;
+  private static timestamp: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).?(M|m).?\]?/g;
   private static omitted: RegExp = /<?(audio|sticker|image|Media) omitted>?/g
   private static ignoreEmojis: string[] = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
 
@@ -145,8 +145,8 @@ export default class WrappedData {
   getWordCountTotal(): {[key: string]: number} {
     const messagesPerPerson = this.getMessagesPerPerson()
     const count: {[key: string]: number} = {}
-    const u1Messages = messagesPerPerson[this.user1]
-    const u2Messages = messagesPerPerson[this.user2]
+    const u1Messages = messagesPerPerson[this.user1] || []
+    const u2Messages = messagesPerPerson[this.user2] || []
     for (let i = 0; i < Math.max(u1Messages.length, u2Messages.length); i++) {
       let u1MsgSplit = (u1Messages[i] || '').replace(new RegExp(`^${this.user1}: `, 'g'), '').split(' ')
       let u2MsgSplit = (u2Messages[i] || '').replace(new RegExp(`^${this.user2}: `, 'g'), '').split(' ')
@@ -164,8 +164,8 @@ export default class WrappedData {
     const messagesPerPerson = this.messagesPerPerson || this.getMessagesPerPerson() // don't run again unnecessarily
     const user1Count: {[key: string]: number} = {}
     const user2Count: {[key: string]: number} = {}
-    const u1Messages = messagesPerPerson[this.user1]
-    const u2Messages = messagesPerPerson[this.user2]
+    const u1Messages = messagesPerPerson[this.user1] || []
+    const u2Messages = messagesPerPerson[this.user2] || []
     for (let i = 0; i < Math.max(u1Messages.length, u2Messages.length); i++) {
       const u1MsgSplit = (u1Messages[i] || '').split(' ')
       const u2MsgSplit = (u2Messages[i] || '').split(' ')
@@ -203,15 +203,10 @@ export default class WrappedData {
   getDateMapping(): {[key: string]: string[]} {
     const dateMapping: {[key: string]: string[]} = {}
     Object.keys(this.messageJson).forEach(key => {
-      let date: string;
-      let newKey: string;
-      if (key.startsWith('[')) {
-        newKey = key.substring(1,key.indexOf(']')) // [date] => date
-        date = new Date(newKey).toString()
-      } else {
-        newKey = key.replace(/\./g, '')
-        date  = new Date(newKey).toString()
-      }
+      let newKey = key.startsWith('[') ? key.substring(1,key.indexOf(']')) : key.replace(/\./g, '')
+      newKey = /^\d\//g.test(newKey) ? "200" + newKey : newKey
+      let date = new Date(newKey).toString()
+      console.log(key, date)
       dateMapping[date] = [...(this.messageJson[key] || [])]
     })
     return dateMapping
@@ -248,7 +243,7 @@ export default class WrappedData {
     const dateMapping = this.getDateMapping()
     const numByHour: {[key: number]: number} = {}
     Object.keys(dateMapping).forEach(date => {
-      const hours = new Date(date).getUTCHours()
+      const hours = new Date(date).getHours()
       numByHour[hours] = (numByHour[hours] || 0) + dateMapping[date].length
     })
     return numByHour
@@ -263,9 +258,8 @@ export default class WrappedData {
     }
     const sortedByHour: any = []
     for (let i = 0; i < n; i++) {
-      const maxKey: number = Object.keys(numByHour).reduce((currMaxKey: number, currKey: string) => {
-        return numByHour[currMaxKey] >= numByHour[+currKey] ? currMaxKey : +currKey
-      }, -1)
+      const maxKey: number = Object.keys(numByHour)
+        .reduce((currMaxKey: number, currKey: string) => numByHour[currMaxKey] >= numByHour[+currKey] ? currMaxKey : +currKey, -1)
       sortedByHour.push({[maxKey]: numByHour[maxKey]})
       numByHour[maxKey] = -1
     }
@@ -332,8 +326,8 @@ export default class WrappedData {
     const messagesPerPerson = this.getMessagesPerPerson()
     const u1EmojiCounts: {[key: string]: number} = {}
     const u2EmojiCounts: {[key: string]: number} = {}
-    const u1Messages = messagesPerPerson[this.user1]
-    const u2Messages = messagesPerPerson[this.user2]
+    const u1Messages = messagesPerPerson[this.user1] || []
+    const u2Messages = messagesPerPerson[this.user2] || []
     for (let i = 0; i < Math.max(u1Messages.length, u2Messages.length); i++) {
       const u1Msg = (u1Messages[i] || '').replace(/^.+: /g, '')
       const u2Msg = (u2Messages[i] || '').replace(/^.+: /g, '')
