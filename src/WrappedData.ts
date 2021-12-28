@@ -13,8 +13,8 @@ export default class WrappedData {
   private firstName1: string = '';
   private firstName2: string = '';
   private messagesPerPerson: {[key: string]: string[]} | null = null;
-  private static msgRemove: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).?(M|m).?\]? (- )?/g;
-  private static timestamp: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).?(M|m).?\]?/g;
+  private static msgRemove: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2,4},? \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).? ?(M|m).?\]? (- )?/g;
+  private static timestamp: RegExp = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2,4},? \d{1,2}:\d{2}(:\d{2})? (P|A|p|a).? ?(M|m).?\]? ?/g;
   private static omitted: RegExp = /<?(audio|sticker|image|Media) omitted>?/g
   private static ignoreEmojis: string[] = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
 
@@ -25,13 +25,13 @@ export default class WrappedData {
       form.parse(req, async (err: any, fields: any, files: any) => {
           const rs = fs.createReadStream(files.fileUploaded.filepath)
           const chunks: any[] = [];
-      
+
           const messages = await new Promise<string>((resolve, reject) => {
             rs.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
             rs.on('error', (err) => reject(err));
             rs.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
           })
-          
+
           let split = messages.split(/\r?\n/)
           if (split.length === 0) {
             return {}
@@ -119,7 +119,7 @@ export default class WrappedData {
     Object.values(this.messageJson).forEach((messages) => {
       messages.forEach(msg => {
         if (msg.startsWith(this.user1)) {
-          messagesPerPerson[this.user1].push(msg) 
+          messagesPerPerson[this.user1].push(msg)
         } else if (msg.startsWith(this.user2)) {
           messagesPerPerson[this.user2].push(msg)
         } else {
@@ -189,8 +189,8 @@ export default class WrappedData {
     for (let ts of Object.keys(dateMapping)) {
       let s = new Date(ts).toUTCString()
       s = s.replace(" GMT", "")
-      const day = utc 
-        ? new Date(s) 
+      const day = utc
+        ? new Date(s)
         : new Date(ts)
       if (!added.includes(day.toDateString())) {
         days.push(day)
@@ -205,6 +205,15 @@ export default class WrappedData {
     Object.keys(this.messageJson).forEach(key => {
       let newKey = key.startsWith('[') ? key.substring(1,key.indexOf(']')) : key.replace(/\./g, '')
       newKey = /^\d\//g.test(newKey) ? "200" + newKey : newKey
+      if (/p m/g.test(newKey) || /a m/g.test(newKey)){
+        newKey = newKey.replace("p m", "PM")
+        newKey = newKey.replace("a m", "AM")
+      }
+      if (newKey.match(/^\d{1,2}\/\d{1,2}\/\d{4}/g)) {
+        // It has the year first so we change the order
+        newKey = newKey.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/g,"$3/$2/$1")
+      }
+      console.log("newKey is", newKey)
       let date = new Date(newKey).toString()
       console.log(key, date)
       dateMapping[date] = [...(this.messageJson[key] || [])]
@@ -366,7 +375,7 @@ export default class WrappedData {
     })
     return [byUseUser1, byUseUser2]
   }
-  
+
   getTopNEmojis(counts: {[key: string]: number}, n: number): string[] {
     const topThree: string[] = []
     Object.keys(counts).forEach(key => {
