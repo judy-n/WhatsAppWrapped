@@ -37,32 +37,29 @@ function dragLeaveHandler(e) {
 
 document.querySelector('#samp').addEventListener('click', (e) => {
   e.preventDefault()
-  const data = new FormData()
   fetch('sample.txt')
-      .then(response => response.text())
-      .then(text => {
-        const lines = text.split('\n').map(line => line + "\n")
-        const file = new File(lines, "fileUploaded.txt", {type: "text/plain", lastModified: new Date()})
-        const data = new FormData()
-        data.append('fileUploaded', file)
-        fetch('/upload', {
-          method: 'POST',
-          body: data,
-          "Content-Type": "multipart/form-data"
-        }).then(res => res.json()).then(json => {
-          localStorage.setItem('WAWData', JSON.stringify(json))
-          window.location.href = '/wrapped'
-        }).catch(console.error)
+    .then(response => response.text())
+    .then(text => {
+      const lines = text.split('\r?\n').map(line => line + "\n")
+      const file = new File(lines, "fileUploaded.txt", {type: "text/plain", lastModified: new Date()})
+      parseTXT(file).then(parsed => {
+        const wrapped = new WrappedData(parsed)
+        const toStore = JSON.stringify({
+          user1: wrapped.getUser1(),
+          user2: wrapped.getUser2(),
+          firstName1: wrapped.getFirstName1(),
+          firstName2: wrapped.getFirstName2(),
+          numMessages: wrapped.getNumMessages(),
+          messagesPerPerson: wrapped.getMessagesPerPerson(),
+          wordCountTotal: wrapped.getWordCountTotal(),
+          topThreeEmojisPerPerson: wrapped.getTopNEmojisPerPerson(3),
+          currentStreak: wrapped.getCurrentStreak(),
+          mostActiveHour: wrapped.getNMostActiveHours(1)[0]
+        })
+        sessionStorage.setItem('WAWData', toStore)
+        window.location.href = '/wrapped'
       })
-  
-  // fetch('/upload', {
-  //   method: 'POST',
-  //   body: data,
-  //   "Content-Type": "multipart/form-data"
-  // }).then(res => res.json()).then(json => {
-  //   localStorage.setItem('WAWData', JSON.stringify(json))
-  //   window.location.href = '/wrapped'
-  // }).catch(console.error)
+    })
 })
 document.querySelector('#file-submit').addEventListener('click', (e) => {
   const input = document.querySelector('#file-input')
@@ -72,16 +69,23 @@ document.querySelector('#file-submit').addEventListener('click', (e) => {
   document.querySelector('#status').innerText = "Loading..."
   document.querySelector('.loader').classList.remove("hide")
   e.target.setAttribute('disabled', 'true')
-  const data = new FormData()
-  data.append('fileUploaded', input.files[0])
-  fetch('/upload', {
-    method: 'POST',
-    body: data,
-    "Content-Type": "multipart/form-data"
-  }).then(res => res.json()).then(json => {
-    localStorage.setItem('WAWData', JSON.stringify(json))
+  parseTXT(input.files[0]).then(parsed => {
+    const wrapped = new WrappedData(parsed)
+    const toStore = JSON.stringify({
+      user1: wrapped.getUser1(),
+      user2: wrapped.getUser2(),
+      firstName1: wrapped.getFirstName1(),
+      firstName2: wrapped.getFirstName2(),
+      numMessages: wrapped.getNumMessages(),
+      messagesPerPerson: wrapped.getMessagesPerPerson(),
+      wordCountTotal: wrapped.getWordCountTotal(),
+      topThreeEmojisPerPerson: wrapped.getTopNEmojisPerPerson(3),
+      currentStreak: wrapped.getCurrentStreak(),
+      mostActiveHour: wrapped.getNMostActiveHours(1)[0]
+    })
+    sessionStorage.setItem('WAWData', toStore)
     window.location.href = '/wrapped'
-  }).catch(console.error)
+  })
 })
 
 const dataDesc = document.querySelector("#data")

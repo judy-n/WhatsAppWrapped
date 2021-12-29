@@ -11,7 +11,7 @@ const {
   topThreeEmojisPerPerson,
   currentStreak,
   mostActiveHour,
-} = JSON.parse(localStorage.getItem('WAWData') || '{}')
+} = JSON.parse(sessionStorage.getItem('WAWData') || '{}')
 let lastWidth;
 let lastCloudWidth;
 
