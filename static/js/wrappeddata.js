@@ -1,22 +1,13 @@
-// import * as dt from 'date-and-time'
-
-// const msgRemove = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]? (- )?/g;
-// const timergx = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]?/g;
-const msgRemove = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)?\.?(M|m)?\.?\]? (- )?/g;
-const timergx = /^\[?\d{1,4}-?\/?\d{1,2}-?\/?\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)?\.?(M|m)?\.?\]?/g;
+const msgRemove = /^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2}, \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)?\.?(M|m)?\.?\]? ?(- )?/g;
+const timergx = /^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2}, \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]?/g;
 const omitted = /<?(audio|sticker|image|Media) omitted>?/g
 const ignoreEmojis = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
 
 function readFileAsync(file) {
   return new Promise((resolve, reject) => {
     let reader = new FileReader();
-
-    reader.onload = () => {
-      resolve(reader.result);
-    };
-
+    reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
-
     reader.readAsText(file);
   })
 }

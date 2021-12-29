@@ -1,3 +1,5 @@
+import {config} from 'dotenv'
+config()
 import * as express from 'express';
 import * as path from 'path';
 import axios from 'axios'
