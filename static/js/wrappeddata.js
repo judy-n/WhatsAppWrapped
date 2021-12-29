@@ -364,8 +364,8 @@ class WrappedData {
       if (topThree.length < n) {
         topThree.push(key)
       }
-      const index = topThree.findIndex(emoji => counts[emoji] < counts[key])
-      if (index >= 0 && emoji !== key) {
+      const index = topThree.findIndex(emoji => counts[emoji] < counts[key] && emoji !== key)
+      if (index >= 0) {
         topThree[index] = key
       }
     })
