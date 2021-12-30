@@ -359,17 +359,17 @@ class WrappedData {
   }
 
   getTopNEmojis(counts, n) {
-    const topThree = []
+    const topN = []
     Object.keys(counts).forEach(key => {
-      if (topThree.length < n) {
-        topThree.push(key)
+      if (topN.length < n && !topN.includes(key)) {
+        topN.push(key)
       }
-      const index = topThree.findIndex(emoji => counts[emoji] < counts[key] && emoji !== key)
-      if (index >= 0) {
-        topThree[index] = key
+      const index = topN.findIndex(emoji => counts[emoji] < counts[key])
+      if (index >= 0 && !topN.includes(key)) {
+        topN[index] = key
       }
     })
-    return topThree
+    return topN
   }
 
   getTopNEmojisPerPerson(n) {
