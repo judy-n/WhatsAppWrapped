@@ -198,7 +198,15 @@ class WrappedData {
       let date = new Date(newKey).toString()
       if (date == 'Invalid Date') {
         // switch order of day/month
+        let first = newKey.match(/^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2,4}/g)
+        let second = newKey.match(/,? \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]? ?(- )?/g)
+        if (first) {
+          first = first[0].replace(/^\[?(\d{1,4})(-|\/)(\d{1,2})((-|\/)\d{2,4})/g, "$3$2$1$4")
+        }
+        newKey = first + second
+        date = new Date(newKey).toString()
       }
+      console.log(newKey)
       dateMapping[date] = [...(this.messageJson[key] || [])]
     })
     return dateMapping
