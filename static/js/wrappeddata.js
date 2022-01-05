@@ -195,18 +195,17 @@ class WrappedData {
     Object.keys(this.messageJson).forEach(key => {
       let newKey = key.startsWith('[') ? key.substring(1,key.indexOf(']')) : key.replace(/\./g, '')
       newKey = /^\d\//g.test(newKey) ? "200" + newKey : newKey
-      let date = new Date(newKey).toString()
+      let date = new Date(new Date(newKey.replace(/-/g, "/"))).toString()
       if (date == 'Invalid Date') {
         // switch order of day/month
-        let first = newKey.match(/^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2,4}/g)
+        let first = newKey.match(/^\[?\d{1,2}(-|\/)\d{1,2}(-|\/)\d{2,4}/g)
         let second = newKey.match(/,? \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]? ?(- )?/g)
         if (first) {
           first = first[0].replace(/^\[?(\d{1,4})(-|\/)(\d{1,2})((-|\/)\d{2,4})/g, "$3$2$1$4")
+          newKey = first + second
+          date = new Date(newKey).toString()
         }
-        newKey = first + second
-        date = new Date(newKey).toString()
       }
-      console.log(newKey)
       dateMapping[date] = [...(this.messageJson[key] || [])]
     })
     return dateMapping
