@@ -1,4 +1,4 @@
-const msgRemove = /^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2,4},? \d{1,2}:\d{2}(:\d{2})? (P|A|p|a)?\.?(M|m)?\.?\]? ?(- )?/g;
+const msgRemove = /^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2,4},? \d{1,2}:\d{2}(:\d{2})? ?(P|A|p|a)?\.?(M|m)?\.?\]? ?(- )?/g;
 const timergx = /^\[?\d{1,4}(-|\/)\d{1,2}(-|\/)\d{2,4},? \d{1,2}:\d{2}(:\d{2})? ?((P|A|p|a)?\.?(M|m)?)?\.?\]?/g;
 const omitted = /<?(audio|sticker|image|Media) omitted>?/g
 const ignoreEmojis = ['🏼', '🏻', '🇮', '🇱', '🇨', '🇦', "'‍", "♀", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', "✖", "♂", "🇧", "🏿", "🇲", "🇵", "🇸", "🇴", "🇪", "🇺"];
@@ -196,6 +196,9 @@ class WrappedData {
       let newKey = key.startsWith('[') ? key.substring(1,key.indexOf(']')) : key.replace(/\./g, '')
       newKey = /^\d\//g.test(newKey) ? "200" + newKey : newKey
       let date = new Date(newKey).toString()
+      if (date == 'Invalid Date') {
+        // switch order of day/month
+      }
       dateMapping[date] = [...(this.messageJson[key] || [])]
     })
     return dateMapping
