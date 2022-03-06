@@ -3,7 +3,7 @@
 # WhatsApp Wrapped
 Get cool stats about your chat with someone!
 
-https://whatsappwrapped.tech/
+https://chatwrapped.herokuapp.com
 
 
 ### Overview
