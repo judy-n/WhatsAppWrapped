@@ -22,6 +22,6 @@ Follow these steps to view your chat stats:
 
 - Open the WhatsApp app on your phone
 - Click on someone's profile, then click **Export Chat > Without Media**: this will download a ZIP file containing a .txt file
-- Go to WhatsApp Wrapped (https://whatsappwrapped.tech/) and upload the .txt file
+- Go to WhatsApp Wrapped (https://chatwrapped.herokuapp.com) and upload the .txt file
 
 & then look at your results!
