@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View and share stats about your WhatsApp chats">
+  <meta name="author" content="Judy Naamani & Julien Bertazzo Lambert">
+  <meta name="keywords" content="WhatsApp, Wrapped, WhatsAppWrapped, ">
+  <meta property="og:title" content="WhatsApp Wrapped">
+  <meta property="og:description" content="View and share stats about your WhatsApp chats">
+  <meta property="og:image" content="/static/logoo.png">
+  <meta property="og:url" content="https://whatsappwrapped.tech">
+  <meta name="twitter:title" content="WhatsApp Wrapped">
+  <meta name="twitter:description" content="View and share stats about your WhatsApp chats">
+  <meta name="twitter:image" content="/static/logoo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>WhatsApp Wrapped</title>
+  <link rel="stylesheet" href="/static/wrap.css">
+  <link rel="shortcut icon" href="static/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Load d3.js -->
+  <script defer src="https://d3js.org/d3.v4.js"></script>
+  <script defer src="static/js/html2canvas.js"></script>
+
+  <!-- Load d3-cloud -->
+  <script defer src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+  <script defer type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script defer src="/static/js/wrap.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4229922602953678"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+  <a class="home-btn" href="/">Home</a>
+  <div class="bubble">
+    <p>The chat between <span class="name fn1" id="fn1">Judy</span> & <span class="name fn2" id="fn2">Julien</span>,</p>
+    <h2 class="sharable-h2">Wrapped</h2>
+  </div>
+  <div class="msgs sharable" id="msg-cont">
+    <div id="total_msg">
+      <h2>In total, you shared <span id="count">4902</span> messages</h2>
+      <h2 id="graph_desc">And this was the distribution:</h2>
+    </div>
+    <!-- <hr/> HERE -->
+    <div id="chart_div"></div>
+  <div class="bubble time" id="hour_msg">
+    <h2>You talked the most at <span id="hour">5 PM</span> </h2>
+  </div>
+</div>
+<!-- sharing -->
+<div class="share-container"><button id="share-btn" onclick="shareDiv('#msg-cont', ['#graph_desc', '#total_msg'])">
+  <span class="material-icons-outlined">
+ios_share
+</span>
+  Share
+</button></div>
+  <div class="wordcloud-cont">
+    <h2>And you had a lot to say...</h2>
+  </div>
+
+  <!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<!-- sharing -->
+<div><button id="share-btn" onclick="shareDiv('#my_dataviz')">
+  <span class="material-icons-outlined">
+ios_share
+</span>
+  Share
+</button></div>
+
+<div class="emojis sharable" id="emojis">
+  <h2 id="emoji-title">Your most used emojis were:</h2>
+  <div class="emojis-cont">
+    <div class="emoji-user">
+        <p class="fn1">Judy</p>
+         <hr/>
+        <p class="emoji-line" id="el1">🙈😝🤪</p>
+    </div>
+    <div class="emoji-user">
+      <p class="fn2">Julien</p>
+       <hr/>
+      <p class="emoji-line" id="el2">💩🥺😂</p>
+    </div>
+  </div>
+</div>
+<!-- sharing -->
+<div><button id="share-btn" onclick="shareDiv('#emojis', ['#emoji-title'])">
+  <span class="material-icons-outlined">
+ios_share
+</span>
+  Share
+</button></div>
+
+<div class="streak-cont sharable" id="streak_cont">
+  <hr/>
+  <h2 class="streak-title">This is your current texting streak - keep it going!</h2>
+  <div class="streak">
+  <p class="fire">🔥</p>
+  <!-- put id streak where you want the streak to be -->
+  <p><span id="streak"></span> days</p>
+  </div>
+<!-- sharing -->
+<div class="share-container"><button id="share-btn" onclick="shareDiv('#streak_cont')">
+  <span class="material-icons-outlined">
+ios_share
+</span>
+  Share
+</button></div>
+
+</div>
+</body>
+</html>
+

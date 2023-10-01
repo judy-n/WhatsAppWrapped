@@ -37,7 +37,7 @@ function dragLeaveHandler(e) {
 
 document.querySelector('#samp').addEventListener('click', (e) => {
   e.preventDefault()
-  fetch('sample.txt')
+  fetch('static/sample.txt')
     .then(response => response.text())
     .then(text => {
       const lines = text.split('\r?\n').map(line => line + "\n")
